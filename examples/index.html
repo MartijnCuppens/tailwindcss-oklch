@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Examples</title>
+    <meta name="robots" content="noimageindex">
+    <link rel="icon" type="image/x-icon" href="assets/me.jpeg">
+    <link rel="stylesheet" href="./dist/main.css">
+  </head>
+  <body class="max-w-3xl mx-auto py-6 px-4 text-body grid gap-[min(calc(1.425rem+2.1vw),3rem)] antialiased bg-text-contrast [&>*]:min-w-[1px]">
+    <header class="text-center text-sm">
+      <h1 class="text-xl font-bold mb-1">
+        Tailwind OKLCH examples
+      </h1>
+      <a href="https://github.com/MartijnCuppens/tailwindcss-oklch" class="underline text-blue-600">View on github</a> -
+      <a href="https://www.npmjs.com/package/tailwindcss-oklch" class="underline text-blue-600">View on npm</a>
+    </header>
+
+    <section>
+      <h2 class="font-bold text-lg mb-2">
+        Button example
+      </h2>
+      <div class="mb-4">
+        <button type="button" class="bg-blue-600 px-4 py-2 text-bg-contrast hover:-bg-lightness-offset-10 rounded transition-all focus:outline-4 outline-0 outline outline-bg/40 font-medium">
+          Button
+        </button>
+      </div>
+      <ul class="list-disc pl-4 grid gap-1">
+        <li>
+          <code class="bg-text/10 py-[.2rem] px-[.4rem] rounded text-sm">bg-blue-600</code> Default Tailwind class to set background color.
+        </li>
+        <li>
+          <code class="bg-text/10 py-[.2rem] px-[.4rem] rounded text-sm">hover:-bg-lightness-offset-10</code> Darken background color on hover.
+        </li>
+        <li>
+          <code class="bg-text/10 py-[.2rem] px-[.4rem] rounded text-sm">outline-bg/40</code> Use the same color for outlines as the background color with an opacity of 40%. This color will change lightness too if the lightness of the background is changed.
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="font-bold text-lg mb-2">
+        Button with changing colors example
+      </h2>
+      <div class="mb-4">
+        <button type="button" class="bg-blue-600 px-4 py-2 text-bg-contrast hover:bg-blue-400 rounded transition-all focus:outline-4 outline-0 outline outline-bg/40 font-medium">
+          Button
+        </button>
+      </div>
+      <ul class="list-disc pl-4 grid gap-1">
+        <li>
+          The contrast color of <code class="bg-text/10 py-[.2rem] px-[.4rem] rounded text-sm">bg-blue-600</code> is white.
+        </li>
+        <li>
+          The contrast color of <code class="bg-text/10 py-[.2rem] px-[.4rem] rounded text-sm">hover:bg-blue-400</code> is black.
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="font-bold text-lg mb-2">
+        Badge example
+      </h2>
+      <div class="mb-4">
+        <span class="px-2 py-1 text-blue-600 bg-text/20 rounded text-xs font-bold uppercase">
+          Button
+        </span>
+      </div>
+      <ul class="list-disc pl-4 grid gap-1">
+        <li>
+          <code class="bg-text/10 py-[.2rem] px-[.4rem] rounded text-sm">text-blue-600</code> sets the text color.
+        </li>
+        <li>
+          <code class="bg-text/10 py-[.2rem] px-[.4rem] rounded text-sm">bg-text/20</code> sets the background color to the same color as the background color with an opacity of 20%.
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="font-bold text-lg mb-2">
+        Outlined badge example
+      </h2>
+      <div class="mb-4">
+        <span class="px-2 py-1 text-blue-600 rounded text-xs font-bold uppercase border border-text/40">
+          Button
+        </span>
+      </div>
+      <ul class="list-disc pl-4 grid gap-1">
+        <li>
+          <code class="bg-text/10 py-[.2rem] px-[.4rem] rounded text-sm">text-blue-600</code> sets the text color.
+        </li>
+        <li>
+          <code class="bg-text/10 py-[.2rem] px-[.4rem] rounded text-sm">border-text/40</code> sets the border color to the same color as the background color with an opacity of 40%.
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="font-bold text-lg mb-2">
+        Named colors example
+      </h2>
+      <div class="flex items-center gap-3 mb-4">
+        <button type="button" class="bg-primary px-4 py-2 text-bg-contrast hover:-bg-lightness-offset-10 rounded transition-all focus:outline-4 outline-0 outline outline-bg/40 font-medium">
+          Button
+        </button>
+        <label class="flex items-center font-bold cursor-pointer hover:bg-lightness-offset-10">
+          Change color:
+          <input type="color" value="#34e560" class="rounded-full w-5 h-5 overflow-hidden ml-1 cursor-pointer" data-color="primary">
+        </label>
+      </div>
+      <ul class="list-disc pl-4 grid gap-1 mb-4">
+        <li>
+          When the color is changed, the hex color is converted to OKLCH with <a href="https://colorjs.io" target="_blank" class="text-blue-600 underline">Color.js</a>. The values of the lightness, chroma and hue are then set as custom properties.
+        </li>
+        <li>
+          <code class="bg-text/10 py-[.2rem] px-[.4rem] rounded text-sm">text-bg-contrast</code> will calculate the contrast color of the text in css.
+        </li>
+      </ul>
+      <p class="mb-4">
+        The following configuration was used to make use of the primary color:
+      </p>
+      <pre class="rounded bg-text/10 block py-3 px-5 text-sm overflow-auto mb-4">/** @type {import('tailwindcss').Config} */
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        primary: `oklch(var(--color-primary-l) var(--color-primary-c) var(--color-primary-h) / &lt;alpha-value&gt;)`,
+      },
+    },
+  },
+};</pre>
+      <pre class="rounded bg-text/10 block py-3 px-5 text-sm overflow-auto">@layer base {
+  :root {
+    --color-primary-l: .32;
+    --color-primary-c: .1;
+    --color-primary-h: 150;
+  }
+}</pre>
+    </section>
+
+    <section>
+      <h2 class="font-bold text-lg mb-2">
+        Automatic dark/light themes
+      </h2>
+      <ul class="list-disc pl-4 grid gap-1 mb-4">
+        <li>
+        The color of this page is set with a <code class="bg-text/10 py-[.2rem] px-[.4rem] rounded text-sm">text-body</code> class, which is also a color custom added color. Since the colors used in the following card rely on the text color, the colors automatically adjust if the body color changes.
+        </li>
+        <li>
+          Since we're using custom properties, you do not need to add a <code class="bg-text/10 py-[.2rem] px-[.4rem] rounded text-sm">text-*</code> color class to each element. In the example below <code class="bg-text/10 py-[.2rem] px-[.4rem] rounded text-sm">bg-text/10</code> is added to the badges. The text color which is used comes from the first parent with a text color, in this case the <code class="bg-text/10 py-[.2rem] px-[.4rem] rounded text-sm">body</code> with the <code class="bg-text/10 py-[.2rem] px-[.4rem] rounded text-sm">text-body</code> class.
+        </li>
+      </ul>
+      <div class="flex items-center gap-3 mb-4">
+        <label class="flex items-center font-bold cursor-pointer">
+          Change body text color:
+          <input type="color" value="#111826" class="rounded-full w-5 h-5 overflow-hidden ml-1 cursor-pointer" data-color="body">
+        </label>
+      </div>
+
+      <div class="max-w-sm rounded-lg overflow-hidden border border-text/20">
+        <img class="w-full bg-text/5" width="384" height="216" src="https://picsum.photos/768/432" alt="Placeholder image">
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl mb-2">The placeholder title</div>
+          <p class="text-base text-body/70">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+          </p>
+        </div>
+        <div class="flex gap-2 flex-wrap px-6 pb-4 text-sm font-semibold uppercase">
+          <span class="px-3 py-1 rounded-full bg-text/10">
+            #lorem
+          </span>
+          <span class="px-3 py-1 rounded-full bg-text/10">
+            #ipsum
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <aside class="text-center text-sm" data-nosnippet>
+      <div class="font-bold mb-1">- Created by -</div>
+      <div class="inline-flex gap-3 items-center">
+        <img src="assets/me.jpeg" alt="" class="bg-text/20 rounded-full w-8 h-8">
+        <div class="text-left">
+          <div class="font-bold text-base">Martijn Cuppens</div>
+          <a href="https://github.com/MartijnCuppens" target="_blank" class="text-body/75 underline hover:text-blue-800">GitHub</a> -
+          <a href="https://twitter.com/Martijn_Cuppens" target="_blank" class="text-body/75 underline hover:text-blue-800">Twitter</a>
+        </div>
+      </div>
+    </aside>
+
+    <footer class="text-center text-sm">
+      <p>
+        Did you find a typo or do you want to improve this demo? <a href="https://github.com/MartijnCuppens/tailwindcss-oklch" target="_blank" class="underline text-blue-600">Submit a PR</a>.
+      </p>
+    </footer>
+    <script src="https://colorjs.io/dist/color.global.js"></script>
+    <script>
+      const root = document.documentElement;
+      document.querySelectorAll('[data-color]').forEach(input => {
+        input.addEventListener('input', () => {
+          const {color} = input.dataset;
+          const {oklch} = new Color(input.value);
+          root.style.setProperty(`--color-${color}-l`, oklch.l);
+          root.style.setProperty(`--color-${color}-c`, oklch.c);
+          root.style.setProperty(`--color-${color}-h`, oklch.h || 0); // Can be NaN when a tint of gray is used
+        });
+      });
+    </script>
+  </body>
+</html>

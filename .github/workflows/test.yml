@@ -1,0 +1,47 @@
+name: Tests
+
+on:
+  push:
+    branches-ignore:
+      - "dependabot/**"
+  pull_request:
+  workflow_dispatch:
+
+env:
+  FORCE_COLOR: 2
+
+jobs:
+  run:
+    name: Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [16, 18, 20]
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Run examples
+        run: cd examples && npm run build
+
+      - name: Verify Changed files
+        uses: tj-actions/verify-changed-files@v16
+        id: verify-changed-files
+        with:
+          files: examples/dist/main.css
+
+      - name: Fail test if example file has changed
+        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        run: exit 1
