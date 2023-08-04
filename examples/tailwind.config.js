@@ -4,9 +4,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   content: ["index.html"],
-  plugins: [require('./../index.js')({
-    contrastThreshold: .6,
-  })],
+  plugins: [require('./../index.js')()],
   theme: {
     extend: {
       colors: {
