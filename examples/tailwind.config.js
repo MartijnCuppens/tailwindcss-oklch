@@ -4,7 +4,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   content: ["index.html"],
-  plugins: [require('tailwindcss-oklch')({
+  plugins: [require('./../index.js')({
     contrastThreshold: .6,
   })],
   theme: {

@@ -11,8 +11,5 @@
   "license": "ISC",
   "devDependencies": {
     "tailwindcss": "^3.3.3"
-  },
-  "dependencies": {
-    "tailwindcss-oklch": "^0.0.0-alpha"
   }
 }
