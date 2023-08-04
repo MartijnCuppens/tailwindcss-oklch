@@ -12,7 +12,7 @@ const propertyColors = Object.fromEntries(utilities.map(({ key }) => {
   ];
 }).flat());
 
-export default plugin.withOptions(({ contrastThreshold = 0.5 } = {}) => {
+export default plugin.withOptions(({ contrastThreshold = 0.6 } = {}) => {
   return ({
     matchUtilities, theme, corePlugins, addDefaults,
   }) => {
