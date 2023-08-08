@@ -1,6 +1,6 @@
 {
   "name": "tailwindcss-oklch",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Bring OKLCH colors to tailwind and introduces handy color utilities",
   "main": "index.js",
   "author": "Martijn Cuppens",
