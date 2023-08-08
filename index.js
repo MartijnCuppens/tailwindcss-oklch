@@ -12,7 +12,7 @@ const propertyColors = Object.fromEntries(utilities.map(({ key }) => {
   ];
 }).flat());
 
-export default plugin.withOptions(({ contrastThreshold = 0.6 } = {}) => {
+export default plugin.withOptions(({ contrastThreshold = 0.6, precision = 6 } = {}) => {
   return ({
     matchUtilities, theme, corePlugins, addDefaults,
   }) => {
@@ -34,6 +34,13 @@ export default plugin.withOptions(({ contrastThreshold = 0.6 } = {}) => {
         }, {});
       };
 
+      // Round numbers and turn NaN into 0.
+      // NaN occurs for the hue gray colors, that also have a chroma of 0,
+      // so we can safely set the hue to 0 instead of NaN.
+      const round = (value) => {
+        return (value || 0).toFixed?.(precision).replace(/\.?0+$/, '') || value;
+      }
+
       matchUtilities(
         {
           [key]: (value) => {
@@ -45,7 +52,7 @@ export default plugin.withOptions(({ contrastThreshold = 0.6 } = {}) => {
             catch (error) {
               // Some values can be keywords like inherit.
 
-              // If the color is a oklch function with custom properties (eg. `oklch(var(--color-primary-l) var(--color-primary-c) var(--color-primary-h))`), parse these custom properties.
+              // If the color is an oklch function with custom properties (eg. `oklch(var(--color-primary-l) var(--color-primary-c) var(--color-primary-h))`), parse these custom properties.
               const match = colorValue.match(/^oklch\((var\(--[a-z0-9-]+?\)) (var\(--[a-z0-9-]+?\)) (var\(--[a-z0-9-]+?\))(?: \/ (.+))?\)$/i);
               if (match) {
                 const [, l, c, h, a] = match;
@@ -57,13 +64,12 @@ export default plugin.withOptions(({ contrastThreshold = 0.6 } = {}) => {
             }
             const result = {};
 
-            // Exclude `transparent` which has a NaN hue value.
-            if (color && !Number.isNaN(color.oklch.h)) {
+            if (color?.oklch && colorValue !== 'transparent') {
               const { oklch, alpha } = color;
               Object.assign(result, {
-                [`--tw-${key}-l`]: oklch.l.toString(),
-                [`--tw-${key}-c`]: oklch.c.toString(),
-                [`--tw-${key}-h`]: oklch.h.toString(),
+                [`--tw-${key}-l`]: round(oklch.l),
+                [`--tw-${key}-c`]: round(oklch.c),
+                [`--tw-${key}-h`]: round(oklch.h),
                 [`--tw-${key}-l-offset`]: '0',
                 ...(alpha === 1 && { [`--tw-${base}-opacity`]: alpha.toString() }),
                 ...addProperties(`oklch(clamp(0, calc(var(--tw-${key}-l) + var(--tw-${key}-l-offset)), 1) var(--tw-${key}-c) var(--tw-${key}-h) / ${alpha === 1 ? `var(--tw-${base}-opacity)` : alpha.toString()})`),
