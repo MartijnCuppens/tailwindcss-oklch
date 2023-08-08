@@ -1,5 +1,7 @@
 # Tailwind OKLCH
 
+view on: [npm](https://www.npmjs.com/package/tailwindcss-oklch) - [GitHub](https://github.com/MartijnCuppens/tailwindcss-oklch)
+
 Brings OKLCH to Tailwind and introduces these helpful utilities:
 
 - Contrast utilities that automatically calculate the contrast color (black/white) of any color in CSS.
@@ -72,9 +74,31 @@ module.exports = {
 
 [View the demo site](https://tailwind-oklch.netlify.app).
 
-## Custom properties / CSS variables support
+## Named colors
 
-In case you prefer named color names, you can add them in your Tailwind config:
+In case you prefer named color names, you can add them in your Tailwind config. For example, if you want to use the Bootstrap colors:
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#0d6efd',
+        secondary: '#6c757d',
+        success: '#198754',
+        danger: '#dc3545',
+        warning: '#ffc107',
+        info: '#0dcaf0',
+        light: '#f8f9fa',
+        dark: '#212529',
+      },
+    },
+  },
+};
+```
+
+## Custom properties / CSS variables support
 
 ```js
 /** @type {import('tailwindcss').Config} */
@@ -93,7 +117,7 @@ module.exports = {
 };
 ```
 
-Afterwards, you can set the separate color values in CSS. Use tools like [oklch.com](https://oklch.com/) to convert your colors. Make sure to use decimals instead of percentages for the lightness, since these are needed to calculate contrast colors.
+You can later on change the colors without recompiling by setting the LCH values. You can use [oklch.com](https://oklch.com) (web based) or [colorjs.io](https://colorjs.io) (javascript library) to convert colors. Make sure to use decimals instead of percentages for the lightness, since these are needed to calculate contrast colors.
 
 ```css
 @layer base {
