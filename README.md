@@ -6,6 +6,8 @@ Brings OKLCH to Tailwind and introduces these helpful utilities:
 - Match utilities that will match the color of a property with another property (e.g. outline color matches the background color), with support for opacity modifiers.
 - Lightness offset utilities that darken or lighten colors (e.g. on hover).
 
+You don't need to change your theme colors, since this plugin uses color.js to convert all existing colors.
+
 ## Installation
 
 To use this package, install it via npm:
@@ -54,11 +56,14 @@ The `text-lightness-offset-10` increases the lightness of the text with 10%. Oth
 
 If you prefer to change the threshold when the contrast color switches to black or white, you can adjust the value of `contrastThreshold`. This value should be somewhere between `0` and `1`. The higher the number, the more likely white will be chosen as the contrast color. While I was working on this plugin, I noticed that a contrast threshold of `.6` looked better on different screens than `.5`, since dark colors seem to have lesser contrast then lighter colors in reality.
 
+Precision was added since color.js uses floats to calculate the OKLCH values, which can result in long numbers. Defaults to `6`.
+
 ```js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   plugins: [require('tailwindcss-oklch')({
     contrastThreshold: .5,
+    precision: 8,
   })],
 }
 ```
