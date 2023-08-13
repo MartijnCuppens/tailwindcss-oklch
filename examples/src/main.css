@@ -3,11 +3,11 @@
 @tailwind utilities;
 @layer base {
   :root {
-    --color-body-l: 0.21;
+    --color-body-l: 21%;
     --color-body-c: 0.032;
     --color-body-h: 265;
 
-    --color-primary-l: 0.81;
+    --color-primary-l: 81%;
     --color-primary-c: 0.22;
     --color-primary-h: 147;
   }

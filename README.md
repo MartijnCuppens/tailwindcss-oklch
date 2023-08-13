@@ -117,12 +117,12 @@ module.exports = {
 };
 ```
 
-You can later on change the colors without recompiling by setting the LCH values. You can use [oklch.com](https://oklch.com) (web based) or [colorjs.io](https://colorjs.io) (javascript library) to convert colors. Make sure to use decimals instead of percentages for the lightness, since these are needed to calculate contrast colors.
+You can later on change the colors without recompiling by setting the LCH values. You can use [oklch.com](https://oklch.com) (web based) or [colorjs.io](https://colorjs.io) (javascript library) to convert colors. Make sure to use percentages for the lightness, since these are needed to calculate contrast colors.
 
 ```css
 @layer base {
   :root {
-    --color-primary-l: .32;
+    --color-primary-l: 32%;
     --color-primary-c: .1;
     --color-primary-h: 150;
   }
