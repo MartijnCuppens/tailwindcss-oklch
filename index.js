@@ -8,17 +8,19 @@ import utilities from './utilities';
 const propertyColors = Object.fromEntries(utilities.map(({ key }) => {
   return [
     [key, `oklch(clamp(0, calc(var(--tw-${key}-l) + var(--tw-${key}-l-offset)), 1) var(--tw-${key}-c) var(--tw-${key}-h) / <alpha-value>)`],
-    [`${key}-contrast`, `oklch(clamp(0, calc(var(--tw-infinite) * (var(--tw-lightness-threshold) - var(--tw-${key}-l) - var(--tw-${key}-l-offset))), 1) 0 0 / <alpha-value>)`],
+    [`${key}-contrast`, `oklch(clamp(var(--tw-min-contrast-lightness), calc(var(--tw-infinite) * (var(--tw-lightness-threshold) - var(--tw-${key}-l) - var(--tw-${key}-l-offset))), var(--tw-max-contrast-lightness)) calc(clamp(0, calc(1 - (calc(var(--tw-infinite) * (var(--tw-lightness-threshold) - var(--tw-${key}-l) - var(--tw-${key}-l-offset))))), 1) * var(--tw-${key}-c)) var(--tw-${key}-h) / <alpha-value>)`],
   ];
 }).flat());
 
-export default plugin.withOptions(({ contrastThreshold = 0.6, precision = 6 } = {}) => {
+export default plugin.withOptions(({ contrastThreshold = 0.6, precision = 6, minContrastLightness = 0, maxContrastLightness = 1 } = {}) => {
   return ({
     matchUtilities, theme, corePlugins, addDefaults,
   }) => {
     addDefaults('infinity', {
       '--tw-infinite': '99999',
       '--tw-lightness-threshold': contrastThreshold.toString(),
+      '--tw-min-contrast-lightness': minContrastLightness.toString(),
+      '--tw-max-contrast-lightness': maxContrastLightness.toString(),
     });
     utilities.forEach(({
       key, themeKey, property, selector,

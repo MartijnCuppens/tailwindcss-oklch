@@ -501,6 +501,8 @@ video {
   --tw-backdrop-sepia:  ;
   --tw-infinite: 99999;
   --tw-lightness-threshold: 0.6;
+  --tw-min-contrast-lightness: 0;
+  --tw-max-contrast-lightness: 1;
 }
 
 ::backdrop {
@@ -553,6 +555,8 @@ video {
   --tw-backdrop-sepia:  ;
   --tw-infinite: 99999;
   --tw-lightness-threshold: 0.6;
+  --tw-min-contrast-lightness: 0;
+  --tw-max-contrast-lightness: 1;
 }
 
 .mx-auto {
@@ -781,10 +785,6 @@ video {
   font-weight: 700;
 }
 
-.font-medium {
-  font-weight: 500;
-}
-
 .font-semibold {
   font-weight: 600;
 }
@@ -835,7 +835,7 @@ video {
 }
 
 .bg-text-contrast {
-  background-color: oklch(clamp(0, calc(var(--tw-infinite) * (var(--tw-lightness-threshold) - var(--tw-text-l) - var(--tw-text-l-offset))), 1) 0 0 / 1);
+  background-color: oklch(clamp(var(--tw-min-contrast-lightness), calc(var(--tw-infinite) * (var(--tw-lightness-threshold) - var(--tw-text-l) - var(--tw-text-l-offset))), var(--tw-max-contrast-lightness)) calc(clamp(0, calc(1 - (calc(var(--tw-infinite) * (var(--tw-lightness-threshold) - var(--tw-text-l) - var(--tw-text-l-offset))))), 1) * var(--tw-text-c)) var(--tw-text-h) / 1);
 }
 
 .bg-text\/10 {
@@ -860,7 +860,7 @@ video {
 
 .text-bg-contrast {
   --tw-text-opacity: 1;
-  color: oklch(clamp(0, calc(var(--tw-infinite) * (var(--tw-lightness-threshold) - var(--tw-bg-l) - var(--tw-bg-l-offset))), 1) 0 0 / var(--tw-text-opacity));
+  color: oklch(clamp(var(--tw-min-contrast-lightness), calc(var(--tw-infinite) * (var(--tw-lightness-threshold) - var(--tw-bg-l) - var(--tw-bg-l-offset))), var(--tw-max-contrast-lightness)) calc(clamp(0, calc(1 - (calc(var(--tw-infinite) * (var(--tw-lightness-threshold) - var(--tw-bg-l) - var(--tw-bg-l-offset))))), 1) * var(--tw-bg-c)) var(--tw-bg-h) / var(--tw-text-opacity));
 }
 
 .text-blue-600 {

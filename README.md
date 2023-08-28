@@ -58,6 +58,8 @@ The `text-lightness-offset-10` increases the lightness of the text with 10%. Oth
 
 If you prefer to change the threshold when the contrast color switches to black or white, you can adjust the value of `contrastThreshold`. This value should be somewhere between `0` and `1`. The higher the number, the more likely white will be chosen as the contrast color. While I was working on this plugin, I noticed that a contrast threshold of `.6` looked better on different screens than `.5`, since dark colors seem to have lesser contrast then lighter colors in reality.
 
+If you're looking for contrast colors beyond just black and white, and you'd like a hint of hue to be present in the contrasting shade, consider modifying the `minContrastLightness` parameter to introduce some color to the darker tones. Simultaneously, you can reduce the `maxContrastLightness` setting to infuse a touch of hue into the lighter shades of white.
+
 Precision was added since color.js uses floats to calculate the OKLCH values, which can result in long numbers. Defaults to `6`.
 
 ```js
@@ -66,6 +68,8 @@ module.exports = {
   plugins: [require('tailwindcss-oklch')({
     contrastThreshold: .5,
     precision: 8,
+    minContrastLightness: 0,
+    maxContrastLightness: 1,
   })],
 }
 ```
